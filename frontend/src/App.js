@@ -84,7 +84,11 @@ function App() {
     /**
      * If the new object has both fields, then replace the old object with them
      */
+<<<<<<< HEAD
     if (obj.first_name && obj.last_name && obj.age) {
+=======
+    if (obj.first_name && obj.last_name) {
+>>>>>>> fb9c0d3802d6f57f653e03a3e69870ea68330f19
       try {
         await axios.patch("http://localhost:8080/people", obj);
         const newList = people.map((person) => {
