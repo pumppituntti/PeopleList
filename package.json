@@ -1,0 +1,27 @@
+{
+  "name": "peoplelist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pumppituntti/PeopleList.git"
+  },
+  "author": "Artem Tolpa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pumppituntti/PeopleList/issues"
+  },
+  "homepage": "https://github.com/pumppituntti/PeopleList#readme",
+  "devDependencies": {
+    "eslint": "^8.7.0"
+  },
+  "dependencies": {
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "mysql": "^2.18.1"
+  }
+}
