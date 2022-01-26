@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const [people, setPeople] = useState(null);
+
+  /**
+   * Getting an array by requesting a backend server
+   */
+  useEffect(() => {
+    axios("http://localhost:8080/people").then(({ data }) => {
+      setPeople(data);
+    });
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {people === null
+        ? "Loading..."
+        : people.map((person) => (
+            <div className="" key={person.id}>
+              {person.first_name} {person.last_name} {person.age}
+            </div>
+          ))}
     </div>
   );
 }
