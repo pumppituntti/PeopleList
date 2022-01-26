@@ -37,12 +37,12 @@ function App() {
     const obj = {
       first_name: inputFirstName,
       last_name: inputLastName,
-      age: inputAge,
+      age: Number(inputAge),
       id: Math.random(),
     };
 
     /**
-     * If both values exist then add the person
+     * If all values exist then add the person
      */
     if (obj.first_name && obj.last_name && obj.age) {
       try {
@@ -78,23 +78,20 @@ function App() {
     const obj = {
       first_name: newFirstName,
       last_name: newLastName,
-      age: newAge,
+      age: Number(newAge),
       id: person.id,
     };
     /**
-     * If the new object has both fields, then replace the old object with them
+     * If the new object has all fields, then replace the old object with them
      */
-<<<<<<< HEAD
     if (obj.first_name && obj.last_name && obj.age) {
-=======
-    if (obj.first_name && obj.last_name) {
->>>>>>> fb9c0d3802d6f57f653e03a3e69870ea68330f19
       try {
         await axios.patch("http://localhost:8080/people", obj);
         const newList = people.map((person) => {
           if (obj.id === person.id) {
-            person.fin = obj.first_name;
-            person.eng = obj.last_name;
+            person.first_name = obj.first_name;
+            person.last_name = obj.last_name;
+            person.age = obj.age;
           }
           return person;
         });
@@ -142,6 +139,36 @@ function App() {
               />
             </div>
           ))}
+      <div className="add_form">
+        Add new Person
+        <div>
+          {/* input field for first name */}
+          <input
+            className="field"
+            value={inputFirstName}
+            type="text"
+            placeholder="First name"
+            onChange={(e) => setInputFirstName(e.target.value)}
+          />
+          {/* input field for last name */}
+          <input
+            className="field"
+            value={inputLastName}
+            type="text"
+            placeholder="Last name"
+            onChange={(e) => setInputLastName(e.target.value)}
+          />
+          {/* input field for age */}
+          <input
+            className="field"
+            value={inputAge}
+            type="text"
+            placeholder="Age"
+            onChange={(e) => setInputAge(e.target.value)}
+          />
+          <button onClick={addNewPerson}>Add</button>
+        </div>
+      </div>
     </div>
   );
 }
