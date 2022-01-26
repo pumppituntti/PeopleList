@@ -4,3 +4,4 @@ jsdoc/
 jsdoc.json
 .env
 *.sql
+*.http
