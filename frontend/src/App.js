@@ -8,6 +8,7 @@ function App() {
   const [inputFirstName, setInputFirstName] = useState("");
   const [inputLastName, setInputLastName] = useState("");
   const [inputAge, setInputAge] = useState("");
+  const [sortType, setSortType] = useState("");
 
   /**
    * Getting an array by requesting a backend server
@@ -21,11 +22,11 @@ function App() {
   /**
    * Updating data when the list changes
    */
-  useEffect(() => {
-    axios("http://localhost:8080/people").then(({ data }) => {
-      setPeople(data);
-    });
-  }, [people]);
+  // useEffect(() => {
+  //   axios("http://localhost:8080/people").then(({ data }) => {
+  //     setPeople(data);
+  //   });
+  // }, [people]);
 
   /**
    * This function sends a request to the backend server to add a new person to the database
@@ -56,7 +57,7 @@ function App() {
         alert(error);
       }
     } else {
-      alert("Fields should not be empty!");
+      alert("Try again! Fields should not be empty and age must be a number!");
     }
   };
 
@@ -109,15 +110,65 @@ function App() {
    * @param {number} id - id of the object to be deleted
    */
   const deletePerson = async (id) => {
-    if (window.confirm("Are you sure want to delete this word?")) {
+    if (window.confirm("Are you sure want to delete this person?")) {
       await axios.delete(`http://localhost:8080/people/${id}`);
-      const newLists = people.filter((person) => person.id !== id);
-      setPeople(newLists);
+      const newList = people.filter((person) => person.id !== id);
+      setPeople(newList);
     }
   };
 
+  useEffect(() => {
+    const sortArray = (type) => {
+      const types = {
+        first_name: "first_name",
+        last_name: "last_name",
+        age: "age",
+      };
+      const sortProperty = types[type];
+      if (people !== null) {
+        const sorted = [...people].sort((a, b) => {
+          if (sortProperty === "age") {
+            if (a[sortProperty] > b[sortProperty]) {
+              return 1;
+            }
+            if (a[sortProperty] < b[sortProperty]) {
+              return -1;
+            }
+            return 0;
+          } else {
+            if (a[sortProperty].toLowerCase() > b[sortProperty].toLowerCase()) {
+              return 1;
+            }
+            if (a[sortProperty].toLowerCase() < b[sortProperty].toLowerCase()) {
+              return -1;
+            }
+            return 0;
+          }
+        });
+        setPeople(sorted);
+        console.log("HERE");
+        console.log(people);
+      }
+    };
+    sortArray(sortType);
+  }, [sortType]);
+
   return (
     <div className="App">
+      Sort by{" "}
+      <select
+        onChange={(e) => {
+          setSortType(e.target.value);
+          console.log(sortType);
+        }}
+      >
+        <option value="" disabled selected>
+          Select
+        </option>
+        <option value="first_name">First name</option>
+        <option value="last_name">Last name</option>
+        <option value="age">Age</option>
+      </select>
       {people === null
         ? "Loading..."
         : people.map((person) => (
