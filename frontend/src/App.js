@@ -155,45 +155,61 @@ function App() {
 
   return (
     <div className="App">
-      Sort by{" "}
-      <select
-        onChange={(e) => {
-          setSortType(e.target.value);
-          console.log(sortType);
-        }}
-      >
-        <option value="" disabled selected>
-          Select
-        </option>
-        <option value="first_name">First name</option>
-        <option value="last_name">Last name</option>
-        <option value="age">Age</option>
-      </select>
-      {people === null
-        ? "Loading..."
-        : people.map((person) => (
-            <div className="" key={person.id}>
-              {person.first_name} {person.last_name} {person.age}{" "}
-              <img
-                src={editSvg}
-                alt="edit icon"
-                onClick={() => {
-                  editPerson(person);
-                }}
-              />
-              <img
-                src={removeSvg}
-                alt="remove icon"
-                onClick={() => {
-                  deletePerson(person.id);
-                }}
-              />
-            </div>
-          ))}
+      <div className="sorting">
+        Sort by{" "}
+        <select
+          onChange={(e) => {
+            setSortType(e.target.value);
+            console.log(sortType);
+          }}
+        >
+          <option value="" disabled selected>
+            Select
+          </option>
+          <option value="first_name">First name</option>
+          <option value="last_name">Last name</option>
+          <option value="age">Age</option>
+        </select>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <td>First name</td>
+            <td>Last name</td>
+            <td>Age</td>
+          </tr>
+        </thead>
+        <tbody>
+          {people === null
+            ? "Loading..."
+            : people.map((person) => (
+                <tr className="Person_data" key={person.id}>
+                  <td>{person.first_name}</td>
+                  <td>{person.last_name}</td>
+                  <td>{person.age}</td>
+                  <div>
+                    <img
+                      src={editSvg}
+                      alt="edit icon"
+                      onClick={() => {
+                        editPerson(person);
+                      }}
+                    />
+                    <img
+                      src={removeSvg}
+                      alt="remove icon"
+                      onClick={() => {
+                        deletePerson(person.id);
+                      }}
+                    />
+                  </div>
+                </tr>
+              ))}
+        </tbody>
+      </table>
       <div className="add_form">
         Add new Person
         <div>
-          {/* input field for first name */}
           <input
             className="field"
             value={inputFirstName}
@@ -201,7 +217,6 @@ function App() {
             placeholder="First name"
             onChange={(e) => setInputFirstName(e.target.value)}
           />
-          {/* input field for last name */}
           <input
             className="field"
             value={inputLastName}
@@ -209,7 +224,6 @@ function App() {
             placeholder="Last name"
             onChange={(e) => setInputLastName(e.target.value)}
           />
-          {/* input field for age */}
           <input
             className="field"
             value={inputAge}

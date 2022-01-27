@@ -13,12 +13,65 @@ code {
 }
 
 .App {
-  margin-left: 70px;
-  flex: 1;
-  padding: 60px;
+  width: auto;
+  margin-top: 10vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  box-shadow: 1px 2px 20px #f3f3f3;
+  border-radius: 10px;
+  overflow: auto;
+  padding: 40px;
+}
+
+.sorting {
+  margin-left: 5%;
+}
+
+table {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}
+
+thead {
+  font-weight: bold;
 }
 
 img {
   margin-left: 10px;
   cursor: pointer;
+}
+
+.add_form {
+  margin-left: 5%;
+}
+
+button {
+  background: #4c4ffd;
+  border: 0;
+  border-radius: 4px;
+  color: #ffffff;
+  padding: 4px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+button:hover {
+  background: #1f26fc;
+}
+button:active {
+  background: #0004ff;
+}
+
+input {
+  margin-right: 10px;
 }
