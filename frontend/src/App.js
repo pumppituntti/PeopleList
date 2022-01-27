@@ -14,19 +14,10 @@ function App() {
    * Getting an array by requesting a backend server
    */
   useEffect(() => {
-    axios("http://localhost:8080/people").then(({ data }) => {
+    axios("/people").then(({ data }) => {
       setPeople(data);
     });
   }, []);
-
-  /**
-   * Updating data when the list changes
-   */
-  // useEffect(() => {
-  //   axios("http://localhost:8080/people").then(({ data }) => {
-  //     setPeople(data);
-  //   });
-  // }, [people]);
 
   /**
    * This function sends a request to the backend server to add a new person to the database
@@ -47,13 +38,13 @@ function App() {
      */
     if (obj.first_name && obj.last_name && obj.age) {
       try {
-        await axios.post("http://localhost:8080/people", obj);
+        await axios.post("/people", obj);
         const newList = [...people, obj];
         setPeople(newList);
         setInputFirstName("");
         setInputLastName("");
         setInputAge("");
-        await axios("http://localhost:8080/people").then(({ data }) => {
+        await axios("/people").then(({ data }) => {
           setPeople(data);
         });
       } catch (error) {
@@ -93,7 +84,7 @@ function App() {
      */
     if (obj.first_name && obj.last_name && obj.age) {
       try {
-        await axios.patch("http://localhost:8080/people", obj);
+        await axios.patch("/people", obj);
         const newList = people.map((person) => {
           if (obj.id === person.id) {
             person.first_name = obj.first_name;
@@ -120,13 +111,17 @@ function App() {
    */
   const deletePerson = async (id) => {
     if (window.confirm("Are you sure want to delete this person?")) {
-      await axios.delete(`http://localhost:8080/people/${id}`);
+      await axios.delete(`/people/${id}`);
       const newList = people.filter((person) => person.id !== id);
       setPeople(newList);
     }
   };
 
   useEffect(() => {
+    /**
+     * This function return sorted array
+     * @param {*} type - type by which the array is sorted
+     */
     const sortArray = (type) => {
       const types = {
         first_name: "first_name",
