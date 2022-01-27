@@ -53,8 +53,14 @@ function App() {
         setInputFirstName("");
         setInputLastName("");
         setInputAge("");
+        await axios("http://localhost:8080/people").then(({ data }) => {
+          setPeople(data);
+        });
       } catch (error) {
-        alert(error);
+        alert(
+          error +
+            "\nName must be up to 40 characters and age must be between 1 and 130"
+        );
       }
     } else {
       alert("Try again! Fields should not be empty and age must be a number!");
@@ -98,7 +104,10 @@ function App() {
         });
         setPeople(newList);
       } catch (error) {
-        alert(error);
+        alert(
+          error +
+            "\nName must be up to 40 characters and age must be between 1 and 130"
+        );
       }
     } else {
       alert("Fields should not be empty!");
@@ -146,8 +155,6 @@ function App() {
           }
         });
         setPeople(sorted);
-        console.log("HERE");
-        console.log(people);
       }
     };
     sortArray(sortType);

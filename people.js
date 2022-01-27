@@ -74,8 +74,8 @@ people.post("/", async (req, res) => {
       res.statusCode = 400;
       res.send(res.statusCode + " Bad request\n" + result.errors);
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 });
 
@@ -83,14 +83,19 @@ people.post("/", async (req, res) => {
  * Updating an object in the database
  */
 people.patch("/", async (req, res) => {
-  let person = req.body;
   try {
-    var response = await connection.editPerson(person);
-    res.statusCode = 200;
-    res.end();
+    let person = req.body;
+    let result = validator.validate(person, schema);
+    if (result.errors.length === 0) {
+      var response = await connection.editPerson(person);
+      res.statusCode = 200;
+      res.end();
+    } else {
+      res.statusCode = 400;
+      res.send(res.statusCode + " Bad request\n" + result.errors);
+    }
   } catch (error) {
-    res.statusCode = 404;
-    res.send({ msg: error });
+    console.log(error);
   }
 });
 
